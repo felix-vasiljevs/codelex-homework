@@ -5,7 +5,6 @@ class Movie
     private string $title;
     private string $studio;
     private string $rating;
-    private array $movies = [];
 
         public function __construct(string $title, string $studio,string $rating)
         {
@@ -36,11 +35,10 @@ class Movie
 
         public function getPG (array $movies): array
         {
-            $this->movies = $movies;
             $moviePG = [];
 
-            foreach ($this->movies as $this->rating){
-                if ($this->rating === 'PG') {
+            foreach ($movies as $movie){
+                if ($movie->getRating() === 'PG') {
                     $moviePG []= $this->rating;
                 }
             }
@@ -54,9 +52,10 @@ $movies = [
     new Movie("Spider-Man: Intro the Spider-Verse", "Columbia Pictures", "PG"),
 ];
 
-foreach ($movies as $movie)
-{
-    echo $movie->sentence() . PHP_EOL;
+
+foreach ($movies as $movie) {
+    $moviesPg = $movie->getPG($movies);
 }
 
-echo $movie->getPG();
+
+var_dump($moviesPg);
