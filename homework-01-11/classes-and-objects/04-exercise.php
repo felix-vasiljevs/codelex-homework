@@ -33,13 +33,13 @@ class Movie
             return "{$this->title} " . " {$this->studio} " . " {$this->rating} ";
         }
 
-        public function getPG (array $movies): array
+        public static function getPG (array $movies): array
         {
             $moviePG = [];
 
             foreach ($movies as $movie){
                 if ($movie->getRating() === 'PG') {
-                    $moviePG []= $this->rating;
+                    $moviePG []= $movie;
                 }
             }
             return $moviePG;
@@ -52,10 +52,6 @@ $movies = [
     new Movie("Spider-Man: Intro the Spider-Verse", "Columbia Pictures", "PG"),
 ];
 
-
-foreach ($movies as $movie) {
-    $moviesPg = $movie->getPG($movies);
-}
-
+$moviesPg = Movie::getPG($movies);
 
 var_dump($moviesPg);
