@@ -50,5 +50,5 @@ class Date
 
 $a = new Date(5,7,2065);
 
-echo "{$a->DisplayDate()}";
+echo "{$a->getMonth()}/{$a->getMonth()}/{$a->getYear()}";
 
