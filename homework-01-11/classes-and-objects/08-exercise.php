@@ -88,7 +88,7 @@ $client = new SavingsAccount($howMuchAmount, $withdrawAmount, $depositPerMonth, 
 echo "Total deposited: {$client->getDeposit($depositPerMonth)}";
 echo "Total withdrawn: {$client->getWithdraw($withdrawAmount)}";
 echo "Interest earned: {$client->getInterestRate()}";
-echo "Ending balance: {$client->getEndingBalance($howMuchAmount, $withdrawAmount, $client->getEndingBalance())}";
+echo "Ending balance: {$client->getEndingBalance($howMuchAmount, $withdrawAmount, $client->getInterestRate())}";
 echo PHP_EOL;
 
 //Total deposited: $7,830.00
