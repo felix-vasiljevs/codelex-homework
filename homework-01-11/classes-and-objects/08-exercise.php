@@ -15,15 +15,15 @@ class SavingsAccount
         $this->balanceInterest = $balanceInterest;
     }
 
-    public function setInterestRate (int $const = 12, int $interest = 5): int
+    public function getInterestRate (int $const = 12, int $interest = 5): int
     {
         $monthlyInterest = $interest / $const;
         $result = $monthlyInterest * $this->amount;
         $this->amount += $result;
-        return $this->amount;
+        return $result;
     }
 
-    public function setAmount (int $amount): int
+    public function setAmount (int $amount): void
     {
         $this->amount = $amount;
     }
@@ -33,11 +33,6 @@ class SavingsAccount
         return $this->amount;
     }
 
-    public function setBalanceInterest (int $balanceInterest): int
-    {
-
-    }
-
     public function getBalanceInterest (): int
     {
         return $this->balanceInterest;
@@ -45,18 +40,27 @@ class SavingsAccount
 
     public function setWithdraw (int $withdraw): int
     {
+        $withdrawSum = 0;
         $this->withdraw -= $this->amount;
         return $this->withdraw;
     }
 
-    public function getWithdraw (): int
+    public function getWithdraw (int $withdraws): int
     {
-        return $this->withdraw;
+        $totalWithdrawn = 0;
+        $totalWithdrawn += $this->withdraw;
+        return $totalWithdrawn;
     }
 
-    public function setDeposit ():int
+    public function setDeposit (int $deposit): void
     {
+        $totalDeposit = 0;
 
+        for ($i = 0; $i <= strlen($deposit); $i++) {
+            $totalDeposit += $i;
+        }
+
+        $this->deposit += $totalDeposit;
     }
 
     public function getDeposit (): int
@@ -64,36 +68,28 @@ class SavingsAccount
         return $this->deposit;
     }
 
-    public function setEndingBalance (): float
+    public function getEndingBalance(int $deposit, int $withdrawn, float $interestEarned): float
     {
-
-    }
-
-    public function getEndingBalance(int $amount): float
-    {
-        $interest = 5;
-        $const = 12;
-        return ;
+        return $this->getDeposit() + $this->getWithdraw($withdrawn) + $this->getBalanceInterest();
     }
 }
 
-$client = new SavingsAccount();
-
-echo $howMuchAmount = (int)readline("\nHow much money is in the account?: \n");
-$client->setDeposit();
-echo $annualInterestRate = (int)readline("\nEnter the annual interest rate: \n");
-echo $openedAccount = (int)readline("\nHow long has the account been opened?: \n");
+echo $howMuchAmount = (int)readline("How much money is in the account?: ");
+echo $annualInterestRate = (int)readline("Enter the annual interest rate: ");
+echo $openedAccount = (int)readline("How long has the account been opened?: ");
 
 for ($i = 1; $i <= $openedAccount; $i++) {
-    echo $depositPerMonth = (int)readline("\nEnter amount deposited for month {$i}: \n");
-    echo $withdrawAmount = (int)readline("\nEnter amount withdrawn for {$i}: \n");
+    echo $depositPerMonth = (int)readline("Enter amount deposited for month {$i}: ");
+    echo $withdrawAmount = (int)readline("Enter amount withdrawn for {$i}: ");
 }
 
-echo "Total deposited: {$client->getDeposit()}";
-echo "Total withdrawn: {$client->getWithdraw()}";
-echo "Interest earned: {$client->getBalanceInterest()}";
-echo "Ending balance: ";
+$client = new SavingsAccount($howMuchAmount, $withdrawAmount, $depositPerMonth, $annualInterestRate);
 
+echo "Total deposited: {$client->getDeposit($depositPerMonth)}";
+echo "Total withdrawn: {$client->getWithdraw($withdrawAmount)}";
+echo "Interest earned: {$client->getInterestRate()}";
+echo "Ending balance: {$client->getEndingBalance($howMuchAmount, $withdrawAmount, $client->getEndingBalance())}";
+echo PHP_EOL;
 
 //Total deposited: $7,830.00
 //Total withdrawn: $5,777.00
