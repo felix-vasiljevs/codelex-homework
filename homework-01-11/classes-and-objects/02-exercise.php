@@ -21,9 +21,14 @@ class Point
         return $this->y;
     }
 
-    public function swapPoints (): int
+    public function swapPoints (object $p1, object $p2)
     {
-        return $this->x ^= $this->y ^= $this->x ^= $this->y;
+        $swapX = $p1->x;
+        $swapY = $p1->y;
+        $p1->x = $p2->x;
+        $p1->y = $p2->y;
+        $p2->x = $swapX;
+        $p2->y = $swapY;
     }
 }
 
